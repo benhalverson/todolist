@@ -1,0 +1,23 @@
+name = "todolist"
+compatibility_date = "2024-09-25"
+compatibility_flags = [ "nodejs_compat" ]
+
+# [vars]
+# MY_VAR = "my-variable"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "todolist"
+database_id = "8ec94fbf-2f09-4fa9-ba37-be81eb448da5"
+# migrations_dir = "drizzle/migrations"
+
+# [ai]
+# binding = "AI"
