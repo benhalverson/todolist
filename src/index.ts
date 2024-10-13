@@ -1,17 +1,17 @@
-import { , Hono } from "hono";
+import { Hono } from "hono";
 import { drizzle, } from "drizzle-orm/d1";
 import { eq, sql, } from "drizzle-orm";
 
 
 import { comments, posts } from "./db/schema";
+import { create } from './controllers/create';
+import { list } from './controllers/list';
+import { deleteStuff } from './controllers/delete';
+import { update } from './controllers/update';
 
 const app = new Hono<{ Bindings: Env }>();
 
-app.get("/list", async (c) => {
-	const db = drizzle(c.env.DB);
-	const response = await db.select().from(posts).all();
-	return c.json(response);
-});
+app.get("/list", list);
 
 app.get('/list-comments', async (c) => {
   const db = drizzle(c.env.DB);
@@ -28,15 +28,7 @@ app.get('/list-comments', async (c) => {
   return c.json(response);
 });
 
-app.post("/create", async (c) => {
-	const db = drizzle(c.env.DB);
-	const { title, content } = await c.req.json();
-	const response = await db
-		.insert(posts)
-		.values({ title, content })
-		.returning();
-	return c.json(response);
-});
+app.post("/create", create);
 
 app.post('/create-comment', async (c) => {
   const db = drizzle(c.env.DB);
@@ -48,26 +40,9 @@ app.post('/create-comment', async (c) => {
   return c.json(response);
 });
 
-app.put("/update", async (c) => {
-  const db = drizzle(c.env.DB);
-  const { id, title, content } = await c.req.json();
-  const response = await db
-    .update(posts)
-    .set({ title, content })
-    .where(eq(posts.id, id))
-    .returning();
-  return c.json(response);
-});
+app.put("/update", update);
 
-app.delete("/delete", async (c) => {
-  const db = drizzle(c.env.DB);
-  const { id } = await c.req.json();
-  const response = await db
-    .delete(posts)
-    .where(eq(posts.id, id))
-    .returning();
-  return c.json(response);
-});
+app.delete("/delete", deleteStuff);
 
 export default app;
 
