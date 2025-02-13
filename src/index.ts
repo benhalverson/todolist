@@ -16,7 +16,7 @@ const app = new Hono<{ Bindings: Env }>();
 app.use(cors({ origin: "*" }));
 app.use(logger());
 app.get("/list", list)
-   .get("/:id", async (c) => {
+   .get("/list/:id", async (c) => {
 	const db = drizzle(c.env.DB);
 	const id = Number(c.req.param("id"));
 
