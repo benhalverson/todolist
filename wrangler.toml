@@ -16,7 +16,7 @@ compatibility_flags = [ "nodejs_compat" ]
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "todolist"
-database_id = "8ec94fbf-2f09-4fa9-ba37-be81eb448da5"
+database_id = "aa03e872-b94a-4e77-a107-f570160b83da"
 migrations_dir = "./drizzle/migrations"
 
 # [ai]
